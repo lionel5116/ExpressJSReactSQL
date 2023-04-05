@@ -21,7 +21,13 @@ router.get('/getECCSchool/:id', async (req, res) => {
   })
 });
 
+router.post('/addECCSchool', async (req, res) => {
+ let eccschool = {...req.body}
+   dboperations.addECCSchool(eccschool).then(result => {
+      res.status(201).json(result)
+  })
 
+});
 
  //this is connecting to SQLDEV01 ******* this is also the original way (does not return data properly to parse..!!!!!)
  router.get('/fetchVoteSettings', async (req, res) => {
