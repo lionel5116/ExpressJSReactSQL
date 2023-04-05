@@ -16,3 +16,19 @@ export const fetchCandidateNominees = async () => {
       return []
     }
 }
+
+export const fethECCSchoolData = async () => {
+    var url = Config.LOCAL_HOST_API + 'api/dac/getECCSchools'
+    console.log(url)
+    try
+    {
+        return await axios.get(url)
+        .then(res => {
+            return res.data;
+        });
+    } catch (err)
+    {
+      console.log("Issue Fetching Records " + err)
+      return []
+    }
+}

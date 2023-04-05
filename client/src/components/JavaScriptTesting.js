@@ -6,12 +6,13 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 import { fetchCandidateNominees } from '../api/sharedAPI';
+import { fethECCSchoolData } from '../api/sharedAPI';
+
 
 
 function JavaScriptTesting() {
 
     const fetchCandidateNomineesRecords = async (e) => {
-        //e.preventDefault();
         try {
             let _SEARCH_DATA = [];
             _SEARCH_DATA = await fetchCandidateNominees();
@@ -29,15 +30,27 @@ function JavaScriptTesting() {
             console.log(err)
 
         }
-
     }
 
-    const onSubmit = e => {
+    const fetchECCSchoolRecords = async (e) => {
+        try {
+            let _FETCH_DATA = [];
+            _FETCH_DATA = await fethECCSchoolData();
 
-        e.preventDefault();
+            if (_FETCH_DATA !== null) {
+                console.log(_FETCH_DATA);
+                console.log(_FETCH_DATA[0].EducationOrgNaturalKey)
+                console.log("Records returned")
+            }
+            else {
+                console.log("Nothing returned")
+            }
 
-        fetchCandidateNomineesRecords()
+        }
+        catch (err) {
+            console.log(err)
 
+        }
     }
 
     return (
@@ -46,11 +59,16 @@ function JavaScriptTesting() {
             <h1>
                 Javascript Testing Harness
             </h1>
-            <Form onSubmit={e => onSubmit(e)}>
+            <Form>
                 <Row className="mb-3">
                     <Form.Group as={Col}>
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button variant="primary">
+                            Fetch Candidate Nominees
+                        </Button>
+                        <Button variant="warning"
+                         onClick={(e)=>fetchECCSchoolRecords(e)}
+                        >
+                            ECC School Data
                         </Button>
                     </Form.Group>
                 </Row>
