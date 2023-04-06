@@ -17,6 +17,10 @@ const NavbarMain = () => {
                 <NavDropdown title="Testing Utilities" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#/JavaScriptTesting">Code Testing</NavDropdown.Item>
                 </NavDropdown>
+
+                <NavDropdown title="Forms" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#/DacSchools">School Management</NavDropdown.Item>
+                </NavDropdown>
               </Nav>
 
             </Navbar.Collapse>
