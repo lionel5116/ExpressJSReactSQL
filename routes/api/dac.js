@@ -13,6 +13,13 @@ router.get('/getECCSchools', async (req, res) => {
   })
 });
 
+router.get('/getECCSchoolsMYSQL', async (req, res) => {
+   dboperations.getECCSchoolsMYSQL().then(result => {
+      res.json(result);
+  })
+});
+
+
 //getECCSchool
 router.get('/getECCSchool/:id', async (req, res) => {
    dboperations.getECCSchool(req.params.id).then(result => {

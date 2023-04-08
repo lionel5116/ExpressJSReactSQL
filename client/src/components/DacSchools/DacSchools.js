@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { createSchoolRecord, fetchECCSchoolData } from '../../actions/DacSchools';
+import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL } from '../../actions/DacSchools';
 import { connect } from 'react-redux'
 
 import { useState } from 'react';
@@ -13,7 +13,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 
 //SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey
 
-export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData }) => {
+export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL }) => {
 
     const [tblFetchSchoolDataResults, setFetchSchoolDataResults] = useState([])
 
@@ -83,6 +83,26 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData }) => {
         }
     }
 
+    const fetchSchoolDataMYSQL = async (e) => {
+        e.preventDefault();
+        let _FETCH_DATA = [];
+
+        try {
+            _FETCH_DATA = await fetchECCSchoolDataMYSQL();
+
+            if (_FETCH_DATA !== []) {
+                setFetchSchoolDataResults(_FETCH_DATA)
+            }
+            else {
+                setFetchSchoolDataResults([]);
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            setFetchSchoolDataResults([]);
+        }
+    }
 
     const columns = [
         {
@@ -181,6 +201,14 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData }) => {
             >
                 Fetch School Records
             </Button>
+            <Button
+                variant="warning"
+                type="button"
+                style={{marginLeft:'5px'}}
+                onClick={(e) => fetchSchoolDataMYSQL(e)}
+            >
+                Fetch School Records MYSQL
+            </Button>
             <br />
             <Row>
                 <Col sm={12}>
@@ -208,5 +236,6 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData }) => {
     );
 }
 
+
 const mapStateToProps = (state) => ({})
-export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData })(DacSchools)
+export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL})(DacSchools)
