@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const eccSchool = require('../../models/eccSchool');
+const eccSchool = require('../../models/eccschool');
 
 router.post('/createECCSchool',
         async (req,res) => {
