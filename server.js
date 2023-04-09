@@ -3,8 +3,12 @@ const cors = require('cors');
 const path = require('path');
 var bodyParser = require('body-parser');
 const router = require('./routes/api/dac');
+const connectDB = require('./config/db')
 
 var app = express();
+
+//Connect to MongoDB Database
+connectDB();
 
 
 //https://stackoverflow.com/questions/59997685/postman-can-not-read-request-body
@@ -27,6 +31,11 @@ router.use((request,response,next)=> {
 
 //http://localhost:/5200/api/dac
 app.use('/api/dac', require('./routes/api/dac'));
+
+//routes for mongoDB
+//http://localhost:/5200/api/eccSchool
+app.use('/api/eccSchool', require('./routes/api/eccSchool'));
+
 
 app.get('/', (req, res) => res.send('API SERVICE IS RUNNING!!'));
 

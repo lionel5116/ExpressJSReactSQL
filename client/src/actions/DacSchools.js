@@ -114,3 +114,41 @@ export const fetchECCSchoolDataMYSQL = () =>
                 );;
             }      
 };
+
+export const fetchSchoolDataMongoDBAtlas = () =>
+    async (dispatch) => { 
+        var serviceUrl = Config.LOCAL_HOST_API + 'api/eccSchool/fetchAllSchools'
+        console.log(serviceUrl);
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            try {
+                const res = await axios.get(serviceUrl, config);
+                if (res.status === 200) {
+            
+                    return res.data.eccShool
+                 }
+                 else {
+                    
+                     dispatch(
+                         setAlert(
+                             "Could not find records",
+                             "danger"
+                         )
+                     );
+                     return []
+                 }
+                
+            } catch (error) {
+                console.log(error.message)
+                dispatch(
+                    setAlert(
+                        "Could not get school data",
+                        "danger"
+                    )
+                );;
+            }      
+};

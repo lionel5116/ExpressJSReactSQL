@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sql= require('mssql');
 
-var ECCSchool = require('../../models/eccschool');
+var ECCSchool1 = require('../../models/eccschool1');
 const dboperations = require('../../dboperations');
 
 //have to place your custom endpoints above your regular VERB based endpoints

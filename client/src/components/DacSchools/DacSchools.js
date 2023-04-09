@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL } from '../../actions/DacSchools';
+import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas } from '../../actions/DacSchools';
 import { connect } from 'react-redux'
 
 import { useState } from 'react';
@@ -13,7 +13,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 
 //SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey
 
-export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL }) => {
+export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas }) => {
 
     const [tblFetchSchoolDataResults, setFetchSchoolDataResults] = useState([])
 
@@ -89,6 +89,27 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
 
         try {
             _FETCH_DATA = await fetchECCSchoolDataMYSQL();
+
+            if (_FETCH_DATA !== []) {
+                setFetchSchoolDataResults(_FETCH_DATA)
+            }
+            else {
+                setFetchSchoolDataResults([]);
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            setFetchSchoolDataResults([]);
+        }
+    }
+
+    const fetchSchoolDataMongoDB = async (e) => {
+        e.preventDefault();
+        let _FETCH_DATA = [];
+
+        try {
+            _FETCH_DATA = await fetchSchoolDataMongoDBAtlas();
 
             if (_FETCH_DATA !== []) {
                 setFetchSchoolDataResults(_FETCH_DATA)
@@ -209,6 +230,14 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
             >
                 Fetch School Records MYSQL
             </Button>
+            <Button
+                variant="danger"
+                type="button"
+                style={{marginLeft:'5px'}}
+                onClick={(e) => fetchSchoolDataMongoDB(e)}
+            >
+                Fetch School Records MongoDB
+            </Button>
             <br />
             <Row>
                 <Col sm={12}>
@@ -238,4 +267,4 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
 
 
 const mapStateToProps = (state) => ({})
-export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL})(DacSchools)
+export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas})(DacSchools)

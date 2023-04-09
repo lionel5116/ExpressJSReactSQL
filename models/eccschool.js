@@ -1,12 +1,12 @@
-//https://www.youtube.com/watch?v=Uvy_BlgwfLI
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-class ECCSchool {
-    constructor(SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey) {
-      this.SchoolGradeLevelAssociationNaturalKey = SchoolGradeLevelAssociationNaturalKey;
-      this.SchoolYearNaturalKey = SchoolYearNaturalKey;
-      this.EducationOrgNaturalKey = EducationOrgNaturalKey;
-      this.GradeLvlTypeNaturalKey = GradeLvlTypeNaturalKey;
-    }
-}
 
-module.exports = ECCSchool;
+const eccSchoolschema = new Schema({
+    SchoolGradeLevelAssociationNaturalKey:{ type: String},
+    SchoolYearNaturalKey:{ type: String },
+    EducationOrgNaturalKey:{ type: String },
+    GradeLvlTypeNaturalKey:{ type: String}
+});
+
+module.exports = mongoose.model('ECCSchool',eccSchoolschema);
