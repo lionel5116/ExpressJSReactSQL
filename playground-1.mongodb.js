@@ -73,5 +73,5 @@ ECCSCHOOLS = [
 
   db.eccschools.insertMany(ECCSCHOOLS)
 
-  db.eccschools.deleteOne( { _id: ObjectId("6432f56ea0df162079c9f4b8") } )
+  db.eccschools.deleteOne( { _id: ObjectId("6432f56ea0df162079c9f4b7") } )
 

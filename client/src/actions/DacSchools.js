@@ -152,3 +152,41 @@ export const fetchSchoolDataMongoDBAtlas = () =>
                 );;
             }      
 };
+
+export const createSchoolRecordMongoDBAtaas = (formData) => async (dispatch) => {
+    var serviceUrl = Config.LOCAL_HOST_API + 'api/eccSchool/createECCSchool';
+    try {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+
+        const res = await axios.post(serviceUrl, formData, config);
+        if (res.data !== false) {
+            dispatch(
+                setAlert(
+                    "Record Added/Updated",
+                    "success"
+                )
+            );
+        }
+        else {
+            dispatch(
+                setAlert(
+                    "Could not add/update record",
+                    "danger"
+                )
+            );
+        }
+
+    } catch (err) {
+        console.log(err);
+        dispatch(
+            setAlert(
+                "Could not add/update record",
+                "danger"
+            )
+        );
+    }
+};

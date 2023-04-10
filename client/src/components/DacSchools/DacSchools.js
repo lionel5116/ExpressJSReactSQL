@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas } from '../../actions/DacSchools';
+import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtaas } from '../../actions/DacSchools';
 import { connect } from 'react-redux'
 
 import { useState } from 'react';
@@ -13,7 +13,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 
 //SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey
 
-export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas }) => {
+export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtaas }) => {
 
     const [tblFetchSchoolDataResults, setFetchSchoolDataResults] = useState([])
 
@@ -33,7 +33,7 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const addNewRecord = e => {
+    const addNewRecord = async e => {
         e.preventDefault();
 
         if (formData.SchoolGradeLevelAssociationNaturalKey.length > 0 &&
@@ -47,10 +47,29 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
             return;
         }
 
-        createSchoolRecord(formData);
+        await createSchoolRecord(formData);
         clearScreen();
         fetchSchoolData(e);
 
+    }
+
+    const  addSchoolRecordMongoDB = async e => {
+        e.preventDefault();
+
+        if (formData.SchoolGradeLevelAssociationNaturalKey.length > 0 &&
+            formData.SchoolYearNaturalKey.length > 0 &&
+            formData.EducationOrgNaturalKey.length > 0 &&
+            formData.GradeLvlTypeNaturalKey.length > 0) {
+
+        }
+        else {
+            window.alert("Missing required field entries!!!");
+            return;
+        }
+
+        await createSchoolRecordMongoDBAtaas(formData);
+        clearScreen();
+        fetchSchoolDataMongoDB(e);
     }
 
     const clearScreen = () => {
@@ -231,6 +250,14 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
                 Fetch School Records MYSQL
             </Button>
             <Button
+                variant="primary"
+                type="button"
+                style={{marginLeft:'5px'}}
+                onClick={(e) => addSchoolRecordMongoDB(e)}
+            >
+                Add School Records MongoDB
+            </Button>
+            <Button
                 variant="danger"
                 type="button"
                 style={{marginLeft:'5px'}}
@@ -267,4 +294,4 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
 
 
 const mapStateToProps = (state) => ({})
-export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas})(DacSchools)
+export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtaas})(DacSchools)
