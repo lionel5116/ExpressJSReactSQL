@@ -41,6 +41,44 @@ export const createSchoolRecord = (formData) => async (dispatch) => {
     }
 };
 
+export const fetchECCSchoolDataV8 = () =>
+    async (dispatch) => { 
+        var serviceUrl = Config.LOCAL_HOST_API + 'api/dac/getECCSchoolsMSSQLV8'
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            try {
+                const res = await axios.get(serviceUrl, config);
+                if (res.status === 200) {
+            
+                    return res.data
+                 }
+                 else {
+                    
+                     dispatch(
+                         setAlert(
+                             "Could not find records",
+                             "danger"
+                         )
+                     );
+                     return []
+                 }
+                
+            } catch (error) {
+                console.log(error.message)
+                dispatch(
+                    setAlert(
+                        "Could not get school data",
+                        "danger"
+                    )
+                );;
+            }      
+};
+
+
 export const fetchECCSchoolData = () =>
     async (dispatch) => { 
         var serviceUrl = Config.LOCAL_HOST_API + 'api/dac/getECCSchools'
@@ -153,7 +191,7 @@ export const fetchSchoolDataMongoDBAtlas = () =>
             }      
 };
 
-export const createSchoolRecordMongoDBAtaas = (formData) => async (dispatch) => {
+export const createSchoolRecordMongoDBAtlas = (formData) => async (dispatch) => {
     var serviceUrl = Config.LOCAL_HOST_API + 'api/eccSchool/createECCSchool';
     try {
         const config = {

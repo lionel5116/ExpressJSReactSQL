@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtaas } from '../../actions/DacSchools';
+import { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtlas,fetchECCSchoolDataV8 } from '../../actions/DacSchools';
 import { connect } from 'react-redux'
 
 import { useState } from 'react';
@@ -13,7 +13,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 
 //SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey
 
-export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtaas }) => {
+export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtlas,fetchECCSchoolDataV8 }) => {
 
     const [tblFetchSchoolDataResults, setFetchSchoolDataResults] = useState([])
 
@@ -67,7 +67,7 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
             return;
         }
 
-        await createSchoolRecordMongoDBAtaas(formData);
+        await createSchoolRecordMongoDBAtlas(formData);
         clearScreen();
         fetchSchoolDataMongoDB(e);
     }
@@ -122,6 +122,29 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
             setFetchSchoolDataResults([]);
         }
     }
+
+     //fetchSchoolDataSQLLocal
+     const fetchSchoolDataSQLLocalV8 = async (e) => {
+        e.preventDefault();
+        let _FETCH_DATA = [];
+
+        try {
+            _FETCH_DATA = await fetchECCSchoolDataV8();
+
+            if (_FETCH_DATA !== []) {
+                setFetchSchoolDataResults(_FETCH_DATA)
+            }
+            else {
+                setFetchSchoolDataResults([]);
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            setFetchSchoolDataResults([]);
+        }
+    }
+
 
     const fetchSchoolDataMongoDB = async (e) => {
         e.preventDefault();
@@ -242,6 +265,14 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
                 Fetch School Records
             </Button>
             <Button
+                variant="success"
+                type="button"
+                style={{marginLeft:'5px'}}
+                onClick={(e) => fetchSchoolDataSQLLocalV8(e)}
+            >
+                Fetch SQL Server Local
+            </Button>
+            <Button
                 variant="warning"
                 type="button"
                 style={{marginLeft:'5px'}}
@@ -294,4 +325,4 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
 
 
 const mapStateToProps = (state) => ({})
-export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtaas})(DacSchools)
+export default connect(mapStateToProps, { createSchoolRecord, fetchECCSchoolData,fetchECCSchoolDataMYSQL,fetchSchoolDataMongoDBAtlas,createSchoolRecordMongoDBAtlas,fetchECCSchoolDataV8})(DacSchools)

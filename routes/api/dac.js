@@ -2,16 +2,28 @@ const express = require('express');
 const router = express.Router();
 const sql= require('mssql');
 
+//nodemssqlv8
+const sqlv8 = require('msnodesqlv8');
+
 var ECCSchool1 = require('../../models/eccschool1');
 const dboperations = require('../../dboperations');
 
 //have to place your custom endpoints above your regular VERB based endpoints
 router.get('/getECCSchools', async (req, res) => {
    dboperations.getECCSchools().then(result => {
-      //console.log(result);
       res.json(result[0]);
   })
 });
+
+router.get('/getECCSchoolsMSSQLV8', async (req, res) => {
+   const connectionString = "server=.;Database=sp_dac;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
+    const query ="SELECT SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey FROM ECC_SHCOOLS";
+    
+    sqlv8.query(connectionString,query, (err,rows) => {
+      return res.json(rows);
+    })
+});
+
 
 router.get('/getECCSchoolsMYSQL', async (req, res) => {
    dboperations.getECCSchoolsMYSQL().then(result => {
