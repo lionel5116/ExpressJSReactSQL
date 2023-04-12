@@ -85,6 +85,9 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
         e.preventDefault();
         let _FETCH_DATA = [];
 
+         //clear results first
+         setFetchSchoolDataResults([]);
+
         try {
             _FETCH_DATA = await fetchECCSchoolData();
 
@@ -149,6 +152,9 @@ export const DacSchools = ({ createSchoolRecord, fetchECCSchoolData,fetchECCScho
     const fetchSchoolDataMongoDB = async (e) => {
         e.preventDefault();
         let _FETCH_DATA = [];
+
+        //clear results first
+        setFetchSchoolDataResults([]);
 
         try {
             _FETCH_DATA = await fetchSchoolDataMongoDBAtlas();
