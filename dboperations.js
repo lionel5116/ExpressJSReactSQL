@@ -1,4 +1,5 @@
 var config = require('./dbconfig');
+var dbconfigSandBox = require('./dbconfigSandBox');
 const sql = require('mssql');
 var mysql = require('mysql2');
 
@@ -8,7 +9,18 @@ async function getECCSchools() {
     let schools = await pool.request().query("SELECT SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey FROM ECC_SHCOOLS");
     return schools.recordsets;
   }
-  catch {
+  catch (error){
+    console.log(error)
+  }
+}
+
+async function getSandboxTestSQL() {
+  try {
+    let pool = await sql.connect(dbconfigSandBox);
+    let schools = await pool.request().query("SELECT CandidateTypeID,Description,UpdatedDate FROM CandidateType");
+    return schools.recordsets;
+  }
+  catch (error) {
     console.log(error)
   }
 }
@@ -68,5 +80,6 @@ module.exports = {
   getECCSchools: getECCSchools,
   getECCSchool: getECCSchool,
   addECCSchool: addECCSchool,
-  getECCSchoolsMYSQL:getECCSchoolsMYSQL
+  getECCSchoolsMYSQL:getECCSchoolsMYSQL,
+  getSandboxTestSQL:getSandboxTestSQL
 }

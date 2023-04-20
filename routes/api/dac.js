@@ -15,6 +15,12 @@ router.get('/getECCSchools', async (req, res) => {
   })
 });
 
+router.get('/getSandboxTestSQL', async (req, res) => {
+   dboperations.getSandboxTestSQL().then(result => {
+      res.json(result[0]);
+  })
+});
+
 router.get('/getECCSchoolsMSSQLV8', async (req, res) => {
    const connectionString = "server=.;Database=sp_dac;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
     const query ="SELECT SchoolGradeLevelAssociationNaturalKey,SchoolYearNaturalKey,EducationOrgNaturalKey,GradeLvlTypeNaturalKey FROM ECC_SHCOOLS";
@@ -23,6 +29,8 @@ router.get('/getECCSchoolsMSSQLV8', async (req, res) => {
       return res.json(rows);
     })
 });
+
+
 
 
 router.get('/getECCSchoolsMYSQL', async (req, res) => {
