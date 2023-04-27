@@ -14,6 +14,16 @@ async function getECCSchools() {
   }
 }
 
+async function getHelloWorld() {
+  try {
+    let myReturnValue = 'Hello World';
+    return myReturnValue;
+  }
+  catch (error){
+    console.log(error)
+  }
+}
+
 async function getSandboxTestSQL() {
   try {
     let pool = await sql.connect(dbconfigSandBox);
@@ -81,5 +91,6 @@ module.exports = {
   getECCSchool: getECCSchool,
   addECCSchool: addECCSchool,
   getECCSchoolsMYSQL:getECCSchoolsMYSQL,
-  getSandboxTestSQL:getSandboxTestSQL
+  getSandboxTestSQL:getSandboxTestSQL,
+  getHelloWorld:getHelloWorld
 }
