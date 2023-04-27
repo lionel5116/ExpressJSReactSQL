@@ -7,5 +7,8 @@ test('Returns a greeting as a string', function () {
 	expect(typeof testfunctions.sayHi()).toBe('string');
 
     // should include the provided name
-	expect(testfunctions.sayHi('Merlin').includes('Merlin')).toBe(true);
+	expect(testfunctions.sayHi('Merlin Jones').includes('Merlin')).toBe(true);
+
+	// should return an integer
+	expect(typeof testfunctions.addNumbers()).toBe('number');
 });
