@@ -56,3 +56,10 @@ ENTRYPOINT ["npm", "run","dev"]
 #• -t tells it to allocate a pseudo terminal (TTY) so you can use the shell properly.
 
 # "msnodesqlv8": "^3.1.0",    --remove from package.json
+
+#to install packages - you don't have to use sudo, because root is the user when you log in
+#apt update
+#apt install nano
+#apt install lsof   (this is allows you to see running process i:e  lsof -i:3000)
+
+#see the CreatingBuildingAndDeploying.docx on how I got mongoDB installed on the container and up and running
