@@ -8,7 +8,7 @@ const NavbarMain = () => {
   return (
     <div id="MasterContainer">
           <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#/JavaScriptTesting">Javascript Testing</Navbar.Brand>
+            <Navbar.Brand href="#/JavaScriptTesting" style={myStyles.navBarMarginLeft}>Javascript Testing</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
@@ -32,5 +32,12 @@ const NavbarMain = () => {
 }
 
 
+const myStyles = {
+  navBarMarginLeft: {
+      marginLeft: '15px'
+  },
+};
+
 
 export default NavbarMain
+
