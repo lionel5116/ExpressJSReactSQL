@@ -8,12 +8,34 @@ import { CartContext } from '../components/ShoppingCart/CartContext';
 import CartProduct from '../components/ShoppingCart/CartProduct';
 
 
+
+
 const NavbarMain = () => {
   const cart = useContext(CartContext);
 
   const [show,setShow] = useState(false);
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  
+  const checkout = async() => {
+    console.log(cart.items)
+    await fetch('http://localhost:5200/checkout', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        items: cart.items
+      })
+    }).then((res) => {
+        return res.json()
+    }).then((res => {
+       if (res.url) {
+         window.location.assign(res.url)  //redirect to strip when purchase is complete
+       }
+    }))
+  }
 
   const productsCount = cart.items.reduce((sum,product) => sum + product.quantity,0);
 
@@ -61,7 +83,7 @@ const NavbarMain = () => {
 
                  <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
 
-                  <Button variant='success'>
+                  <Button variant='success' onClick={checkout}>
                       Purchase items!
                   </Button>
                 </>

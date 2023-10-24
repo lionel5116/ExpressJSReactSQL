@@ -1,16 +1,26 @@
+//STRIP ACTUAL PRICE IDS
+//coffee price id
+//price_1O4pH1KWeLMKqrB6RqvSw2RC
+
+//sunglasses price id
+//price_1O4pKcKWeLMKqrB6t6EsNZr5
+
+//camera price id
+//price_1O4pLuKWeLMKqrB6RQLBbdo4
+
 const productsArray = [
     {
-        id:"1",
+        id:"price_1O4pH1KWeLMKqrB6RqvSw2RC",
         title:"Coffee",
         price:4.99
     },
     {
-        id:"2",
+        id:"price_1O4pKcKWeLMKqrB6t6EsNZr5",
         title:"Sunglasses",
         price:9.99
     },
     {
-        id:"3",
+        id:"price_1O4pLuKWeLMKqrB6RQLBbdo4",
         title:"Camera",
         price:39.99
     },
