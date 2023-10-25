@@ -44,12 +44,16 @@ router.use((request,response,next)=> {
 })
 */
 
-//http://localhost:/5200/api/dac
+//http://localhost:5200/api/dac
 app.use('/api/dac', require('./routes/api/dac'));
 
 //routes for mongoDB
-//http://localhost:/5200/api/eccSchool
+//http://localhost:5200/api/eccSchool
 app.use('/api/eccSchool', require('./routes/api/eccSchool'));
+
+//ecommerce
+//http://localhost:5200/api/cartproduct
+app.use('/api/products', require('./routes/api/products'));
 
 
 app.get('/', (req, res) => res.send('API SERVICE IS RUNNING!!'));
