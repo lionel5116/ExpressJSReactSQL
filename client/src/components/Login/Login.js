@@ -8,10 +8,30 @@ import Card from 'react-bootstrap/Card';
 import {setAlert} from '../../actions/alert'
 import  {login} from '../../actions/auth'
 
-const Login = ({ setLoginData, setAlert,login}) => {
+import { setProductData } from '../../actions/product';
+
+const Login = ({ setLoginData, setAlert,login,setProductData}) => {
 const email = useRef();
 const password = useRef();
 
+const productsArray = [
+  {
+      id:"price_1O4pH1KWeLMKqrB6RqvSw2RC",
+      title:"Coffee",
+      price:4.99
+  },
+  {
+      id:"price_1O4pKcKWeLMKqrB6t6EsNZr5",
+      title:"Sunglasses",
+      price:9.99
+  },
+  {
+      id:"price_1O4pLuKWeLMKqrB6RQLBbdo4",
+      title:"Camera",
+      price:39.99
+  },
+
+]
 
 const onSubmit = async e => {
   e.preventDefault();
@@ -20,6 +40,7 @@ const onSubmit = async e => {
     setAlert('Please enter a password','danger');
   }
   else{
+      setProductData(productsArray)
       login(email.current.value,
            password.current.value);
       clearScreen()
@@ -96,4 +117,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { setLoginData,setAlert,login })(Login)
+export default connect(mapStateToProps, { setLoginData,setAlert,login,setProductData })(Login)
