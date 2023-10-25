@@ -1,18 +1,25 @@
-import React, { useState,useRef } from 'react'
+import React, { useState,useRef ,useEffect} from 'react'
 import { connect } from 'react-redux';
-import { setLoginData } from '../../actions/login';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-//import {Link} from 'react-router-dom';
 import {setAlert} from '../../actions/alert'
 import  {login} from '../../actions/auth'
 
 import { setProductData } from '../../actions/product';
+import { fethCartProductData } from '../../api/sharedAPI';
 
-const Login = ({ setLoginData, setAlert,login,setProductData}) => {
+const Login = ({setAlert,login,setProductData}) => {
 const email = useRef();
 const password = useRef();
+
+//useEffect Methods ***********
+useEffect(() => {
+  getProductsFromDB()
+}, []);
+
+//const [_productsArray, setProducts] = useState([]);
 
 const productsArray = [
   {
@@ -33,6 +40,12 @@ const productsArray = [
 
 ]
 
+async function getProductsFromDB() {
+  let _SEARCH_DATA = [];
+  _SEARCH_DATA = await fethCartProductData()
+  setProductData(_SEARCH_DATA.product) //set state for products
+}
+
 const onSubmit = async e => {
   e.preventDefault();
   console.log(password.current.value.length)
@@ -40,7 +53,6 @@ const onSubmit = async e => {
     setAlert('Please enter a password','danger');
   }
   else{
-      setProductData(productsArray)
       login(email.current.value,
            password.current.value);
       clearScreen()
@@ -117,4 +129,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { setLoginData,setAlert,login,setProductData })(Login)
+export default connect(mapStateToProps, {setAlert,login,setProductData })(Login)

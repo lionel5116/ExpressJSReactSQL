@@ -32,3 +32,20 @@ export const fethECCSchoolData = async () => {
       return []
     }
 }
+
+export const fethCartProductData = async () => {
+    var url = Config.LOCAL_HOST_API + 'api/products/fetchAllProducts'
+    console.log(url)
+    try
+    {
+        return await axios.get(url)
+        .then(res => {
+            //console.log(res.data);
+            return res.data;
+        });
+    } catch (err)
+    {
+      console.log("Issue Fetching Records " + err)
+      return []
+    }
+}
