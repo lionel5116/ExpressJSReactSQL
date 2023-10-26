@@ -3,11 +3,26 @@ import { CartContext } from "./CartContext";
 import { useContext } from "react";
 import { getProductsData } from "./productsStore";
 
-export const CartProduct = (props) =>{
+import { connect } from 'react-redux';
+
+export const CartProduct = ({products, ...props}) =>{
   const cart = useContext(CartContext);
+  
   const id = props.id;
   const quantity = props.quantity;
-  const productData = getProductsData(id)
+
+  const productData = getProductsDataFromRedux(props.id)
+
+  function getProductsDataFromRedux(id)
+    {
+        let productData = products.find(product => product.p_id === id) 
+        if (productData == undefined) {
+           console.log("Product data does not exist for id " + id)
+           return undefined
+        }
+        
+        return productData;
+    }
   
   return (
     <>
@@ -21,4 +36,9 @@ export const CartProduct = (props) =>{
 
 }
 
-export default CartProduct;
+
+const mapStateToProps = state => ({
+  products:state.product.products
+})
+
+export default connect(mapStateToProps)(CartProduct);

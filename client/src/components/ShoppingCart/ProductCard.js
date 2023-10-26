@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 export const ProductCard = (props) =>{
     const product = props.product;
     const cart = useContext(CartContext)
-    const productQuantity = cart.getProductQuantity(product.id);
+    const productQuantity = cart.getProductQuantity(product.p_id);
     
 
     return (
@@ -23,15 +23,15 @@ export const ProductCard = (props) =>{
                   <Form as={Row}>
                     <Form.Label column="true" sm="6">In Cart: {productQuantity}</Form.Label>
                     <Col sm="6">
-                        <Button sm="6" className='mx-2' onClick={() => cart.addOneToCart(product.id)}>+</Button>
-                        <Button sm="6" className='mx-2' onClick={() => cart.removeOneFromCart(product.id)}>-</Button>
+                        <Button sm="6" className='mx-2' onClick={() => cart.addOneToCart(product.p_id)}>+</Button>
+                        <Button sm="6" className='mx-2' onClick={() => cart.removeOneFromCart(product.p_id)}>-</Button>
                     </Col>
                   </Form>
-                  <Button variant='danger' onClick={() => cart.deleteFromCart(product.id)} className='my-2'>Remove from Cart</Button>
+                  <Button variant='danger' onClick={() => cart.deleteFromCart(product.p_id)} className='my-2'>Remove from Cart</Button>
 
                 </>
                  :
-                 <Button variant="primary" onClick={()=> cart.addOneToCart(product.id)}>Add To Cart</Button>
+                 <Button variant="primary" onClick={()=> cart.addOneToCart(product.p_id)}>Add To Cart</Button>
                }
 
             

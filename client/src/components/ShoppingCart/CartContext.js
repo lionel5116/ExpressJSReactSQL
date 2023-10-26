@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 import { productsArray, getProductsData } from "./productsStore";
 
+import { connect } from 'react-redux';
+
 export const CartContext = createContext({
     items: [],
     getProductQuantity: () => { },
@@ -11,8 +13,9 @@ export const CartContext = createContext({
 });
 
 
-export function CartProvider({ children }) {
+export function CartProvider({ children,products }) {
     const [cartProducts, setCartProducts] = useState([]);
+   
 
     function getProductQuantity(id) {
         const quantity = cartProducts.find(product => product.id === id)?.quantity
@@ -72,15 +75,36 @@ export function CartProvider({ children }) {
 
     function getTotalCost() {
         let totalCost = 0;
+        
+        /*
         cartProducts.map((cartItem) => {
             const productData = getProductsData(cartItem.id);
             totalCost += (productData.price * cartItem.quantity)
         });
+         */
+
+        
+        cartProducts.map((cartItem) => {
+            const productData = getProductsDataFromRedux(cartItem.id);
+            totalCost += (productData.price * cartItem.quantity)
+        });
+        
 
         return totalCost;
     }
 
-
+    function getProductsDataFromRedux(id)
+    {
+        //let productData = products.find(product => product.id === id)
+        let productData = products.find(product => product.p_id === id)
+        //console.log(productData)
+        if (productData == undefined) {
+           console.log("Product data does not exist for id " + id)
+           return undefined
+        }
+        
+        return productData;
+    }
 
     const contextValue = {
         items: cartProducts,
@@ -99,7 +123,14 @@ export function CartProvider({ children }) {
 
 }
 
-export default CartProvider;
+
+const mapStateToProps = state => ({
+    products:state.product.products
+})
+
+
+//export default CartProvider;
+export default connect(mapStateToProps)(CartProvider);
 
 //Context (cart,addToCart,removeCart)
 //Provider  -> gives your React app access to all the things in your context

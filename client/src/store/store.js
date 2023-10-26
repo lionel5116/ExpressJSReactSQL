@@ -9,6 +9,7 @@ const initialState = {};
 
 const middleware = [thunk];
 
+
 export const store  = createStore(
     allReducers,
     initialState,
@@ -16,11 +17,12 @@ export const store  = createStore(
 );
 
 
-/*
-//https://redux-toolkit.js.org/tutorials/quick-start
+
+/* THIS ACTUALLY WORKS (THE NEW WAY), BUT I THINK BECAUSE WE DONT HAVE OUR APPLYMIDDLE WARE, MY ALERT ACTIONS IS NOT WORKING
 export const store = configureStore({
     reducer: {allReducers},
-    initialState,
-    composeWithDevTools(applyMiddleware(...middleware))
+    allReducers
   })
-  */
+*/
+
+

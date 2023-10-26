@@ -1,13 +1,3 @@
-//STRIP ACTUAL PRICE IDS
-//coffee price id
-//price_1O4pH1KWeLMKqrB6RqvSw2RC
-
-//sunglasses price id
-//price_1O4pKcKWeLMKqrB6t6EsNZr5
-
-//camera price id
-//price_1O4pLuKWeLMKqrB6RQLBbdo4
-
 const productsArray = [
     {
         id:"price_1O4pH1KWeLMKqrB6RqvSw2RC",
